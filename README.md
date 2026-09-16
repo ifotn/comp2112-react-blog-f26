@@ -18,3 +18,22 @@ npm run dev
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+
+## Creating a New Page in Next.js
+
+1. Create a new subfolder under app using all lowercase, separating multiple words with dashes (e.g. "about-us").
+2. Create a file called page.tsx in the new folder
+3. Use the following template, then add your own JSX markup to the page
+
+```bash
+export default function SomePageName() {
+  return (
+    // markup goes here
+  );
+}
+```
+## Creating a Shared Element on All Pages
+
+1. Create a new component tsx file (NOT called page.tsx) in app/components (we had to create components folder first).
+2. Import the new component at the top of layout.tsx
+3. Render the component in an html-style tag within the <body> element of layout.tsx
