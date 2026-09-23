@@ -37,3 +37,9 @@ export default function SomePageName() {
 1. Create a new component tsx file (NOT called page.tsx) in app/components (we had to create components folder first).
 2. Import the new component at the top of layout.tsx
 3. Render the component in an html-style tag within the <body> element of layout.tsx
+
+## Lesson 3: Props
+
+We used 2 string "props" to pass values between a parent component (about/page.tsx) and a child component (components/technology.tsx).
+This lets us set values in the parent and display them in the child.
+This makes the child component re-usable and lets us update the markup in 1 place instead of repeating the work.

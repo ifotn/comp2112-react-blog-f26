@@ -1,4 +1,5 @@
 import {Post} from "@/app/types/post";
+import Link from "next/link";
 
 export default async function Blog() {
     // fetch blog data from external api
@@ -12,8 +13,10 @@ export default async function Blog() {
             <h1>Blog</h1>
             <ul>
                 {posts.map((post) => (
-                    <li key={post.id}>
-                        {post.title}
+                    <li key={post.id} className="card">
+                        <Link href={`/blog/${post.id}`}>
+                            {post.title}
+                        </Link>
                     </li>
                 ))}
             </ul>
