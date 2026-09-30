@@ -2,14 +2,22 @@
 
 import { useState } from "react";
 import PageTitle from "@/app/components/pageTitle";
+import { useSessionCounter } from "@/app/context/globalContext";
 
 export default function Home() {
-    // create state variable to hold a counter
+    // create local state variable to hold a counter (this page only)
     const [counter, setCounter] = useState<number>(0);
+
+    // access global counter var write method in global context
+    const { increment } = useSessionCounter();
 
     // event handler for button
     const handleClick = () => {
+        // updates local page state var
         setCounter(counter + 1);
+
+        // also update global session var (persists on refresh / reload)
+        increment();
     }
 
     const handleReset = () => {
