@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from "react";
+import PageTitle from "@/app/components/pageTitle";
 
 export default function Home() {
     // create state variable to hold a counter
@@ -17,6 +18,7 @@ export default function Home() {
 
   return (
       <main>
+        <PageTitle title="Home" />
         <h1>React Blog</h1>
         <p>We&apos;re building this site using Next.js in COMP2112.</p>
         <section>

@@ -1,4 +1,5 @@
 import {Post} from "@/app/types/post";
+import PageTitle from "@/app/components/pageTitle";
 
 export default async function BlogDetail({ params }: { params: { id: string }}) {
     // use id from url params
@@ -29,6 +30,7 @@ export default async function BlogDetail({ params }: { params: { id: string }}) 
     // console.log(post);
     return (
         <main>
+            <PageTitle title={post.title} />
             <h1>{post.title}</h1>
             <h2>{post.author} on {post.date}</h2>
             <article>{post.content}</article>

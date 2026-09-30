@@ -1,5 +1,6 @@
 import {Post} from "@/app/types/post";
 import Link from "next/link";
+import PageTitle from "@/app/components/pageTitle";
 
 export default async function Blog() {
     // fetch blog data from external api
@@ -10,6 +11,7 @@ export default async function Blog() {
 
     return (
         <main>
+            <PageTitle title="Blog" />
             <h1>Blog</h1>
             <ul>
                 {posts.map((post) => (
