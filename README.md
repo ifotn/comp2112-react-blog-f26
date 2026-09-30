@@ -43,3 +43,11 @@ export default function SomePageName() {
 We used 2 string "props" to pass values between a parent component (about/page.tsx) and a child component (components/technology.tsx).
 This lets us set values in the parent and display them in the child.
 This makes the child component re-usable and lets us update the markup in 1 place instead of repeating the work.
+
+## Lesson 4: Effect and Context Hooks
+
+We used the Effect hook to update the page title in the browser when each page loads for SEO.
+
+We used the Pathname hook in the navbar to read the current url so we can set the appropriate link as active.
+
+These are all client side Hooks and require ```'use client';``` at the top of the file to work.
