@@ -60,4 +60,8 @@ These are all client side Hooks and require ```'use client';``` at the top of th
 
 ```npm i react-hook-form``` - form validation & processing
 
+After we ran npm audix fix we created an npm compatibility issue.  Fix by changing this in package.json:
+
+```"eslint": "^8.57.0",``` - downgrade eslint back to original version.  audit updates it to v9, which causes conflicts.
+
 
