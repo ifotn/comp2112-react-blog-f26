@@ -162,3 +162,8 @@ fieldset {
   color: firebrick;
   margin: 1rem;
 }
+
+.success {
+  color: green;
+  margin: 1rem;
+}

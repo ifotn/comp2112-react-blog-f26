@@ -53,3 +53,9 @@ We used the Pathname hook in the navbar to read the current url so we can set th
 We used the Context hook as a global variable store so we could set a value on the home page, render it in the footer and have it persist from page to page.
 
 These are all client side Hooks and require ```'use client';``` at the top of the file to work.
+
+## Lesson 5
+
+```npm i react-hook-form``` - form validation & processing
+
+```npm audit fix --force``` - try to fix known npm vulnerabilities
