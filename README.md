@@ -15,9 +15,11 @@ First, run the development server:
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the app locally.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+
+Production site at [https://comp2112-react-blog-f26.onrender.com]
 
 ## Creating a New Page in Next.js
 
@@ -58,4 +60,4 @@ These are all client side Hooks and require ```'use client';``` at the top of th
 
 ```npm i react-hook-form``` - form validation & processing
 
-```npm audit fix --force``` - try to fix known npm vulnerabilities
+
