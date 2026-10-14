@@ -41,8 +41,11 @@ export default function CreatePost() {
                 author: 'rfreeman'
             };
 
+            // get api domain from .env ; ! at the end is just a null check
+            const apiDomain: string = process.env.NEXT_PUBLIC_API_DOMAIN!;
+
             // call api using POST
-            const response: Response = await fetch('https://api-demo-f26.vercel.app/api/v1/posts', {
+            const response: Response = await fetch(`${apiDomain}/posts`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

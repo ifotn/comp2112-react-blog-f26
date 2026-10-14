@@ -35,8 +35,11 @@ export default function Register() {
                 password: data.password
             }
 
+            // get api domain from .env ; ! at the end is just a null check
+            const apiDomain: string = process.env.NEXT_PUBLIC_API_DOMAIN!;
+
             // make post request to server API to try registering new user
-            const response: Response = await fetch('https://api-demo-f26.vercel.app/api/v1/users/register', {
+            const response: Response = await fetch(`${apiDomain}/users/register`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)

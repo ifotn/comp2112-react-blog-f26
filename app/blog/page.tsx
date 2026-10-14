@@ -3,8 +3,11 @@ import Link from "next/link";
 import PageTitle from "@/app/components/pageTitle";
 
 export default async function Blog() {
+    // get api domain from .env ; ! at the end is just a null check
+    const apiDomain: string = process.env.NEXT_PUBLIC_API_DOMAIN!;
+
     // fetch blog data from external api
-    const data: Response = await fetch('https://api-demo-f26.vercel.app/api/v1/posts');
+    const data: Response = await fetch(`${apiDomain}/posts`);
 
     // convert api data to an array of Post objects
     const posts: Post[] = await data.json();

@@ -7,8 +7,11 @@ export default async function BlogDetail({ params }: { params: { id: string }}) 
     const { id } = await params;
     // console.log('id: ' + id);
 
+    // get api domain from .env ; ! at the end is just a null check
+    const apiDomain: string = process.env.NEXT_PUBLIC_API_DOMAIN!;
+
     // fetch selected blog post from api.  lesson 5: change url from Vercel api to Rich's demo api
-    const url: string = 'https://api-demo-f26.vercel.app/api/v1/posts/' + id;
+    const url: string = `${apiDomain}/posts/` + id;
     // console.log('url: ' + url);
     const res: Response = await fetch(url, {
         cache: 'no-store'
