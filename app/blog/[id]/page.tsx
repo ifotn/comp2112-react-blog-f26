@@ -1,5 +1,6 @@
 import {Post} from "@/app/types/post";
 import PageTitle from "@/app/components/pageTitle";
+import { Parser } from "html-to-react";
 
 export default async function BlogDetail({ params }: { params: { id: string }}) {
     // use id from url params
@@ -33,7 +34,7 @@ export default async function BlogDetail({ params }: { params: { id: string }}) 
             <PageTitle title={post.title} />
             <h1>{post.title}</h1>
             <h2>{post.author} on {new Date(post.date).toLocaleDateString()}</h2>
-            <article>{post.content}</article>
+            <article>{Parser().parse(post.content)}</article>
         </main>
     );
 }

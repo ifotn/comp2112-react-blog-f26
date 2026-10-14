@@ -67,3 +67,5 @@ After we ran npm audix fix we created an npm compatibility issue.  Fix by changi
 ## Lesson 6
 
 ```npm i react-simple-wysiwyg --legacy-peer-deps``` - rich text editor for blog post content with backwards compatibility settings to avoid npm version conflicts
+
+```npm i html-to-react``` - to parse HTML tags for formatting of blog post content
