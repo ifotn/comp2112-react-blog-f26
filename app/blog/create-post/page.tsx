@@ -1,13 +1,21 @@
 'use client';
 
 import PageTitle from "@/app/components/pageTitle";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { Post } from "@/app/types/post";
 import { useRouter } from "next/navigation";
+import SimpleWysiwyg from "react-simple-wysiwyg";
 
 interface PostFormData {
     title: string;
     content: string;
+}
+
+// event handler for rte to update value user has entered for blog post content
+interface SimpleWysiwygChangeEvent {
+    target: {
+        value: string;
+    }
 }
 
 export default function CreatePost() {
@@ -15,7 +23,12 @@ export default function CreatePost() {
     const router = useRouter();
 
     // set up react-hook-form
-    const { register, handleSubmit, formState: { errors, isSubmitSuccessful }} = useForm<PostFormData>();
+    const { register, control, handleSubmit, formState: { errors, isSubmitSuccessful }} = useForm<PostFormData>({
+        defaultValues: {
+            title: '',
+            content: ''
+        }
+    });
 
     const onSubmit = async (data: PostFormData) => {
         console.log(`Submitted: `, data);
@@ -59,7 +72,12 @@ export default function CreatePost() {
                 </fieldset>
                 <fieldset>
                     <label htmlFor="content">Content: *</label>
-                    <textarea {...register("content", { required: "Content is required"})}></textarea>
+                    {/*<textarea {...register("content", { required: "Content is required"})}></textarea>*/}
+                    <Controller name="content" control={control} rules={{ required: "Content is required" }}
+                                render={({ field }) => (
+                                    <SimpleWysiwyg className="rte" value={field.value}
+                                                   onChange={(e) => field.onChange(e.target.value)} />
+                                )} />
                     {errors.content && <span className="error">{errors.content.message}</span>}
                 </fieldset>
                 <button>Save</button>
