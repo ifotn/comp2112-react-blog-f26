@@ -20,8 +20,45 @@ export default function Register() {
         }
     });
 
+    const validatePassword = (value: string) => {
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/;
+        return passwordRegex.test(value) || "Must be 8+ chars with 1 uppercase, 1 lowercase, 1 number, and 1 special character";
+    };
+
     const onSubmit = async (data: RegisterFormData) => {
         console.log(`Submitted: `, data);
+
+        try {
+            // set up json payload
+            const payload = {
+                username: data.username,
+                password: data.password
+            }
+
+            // make post request to server API to try registering new user
+            const response: Response = await fetch('https://api-demo-f26.vercel.app/api/v1/users/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            // interpret api response
+            const apiResponse: any = await response.json();
+            console.log(apiResponse);
+
+            if (apiResponse.success === false) {
+                setError("username", {
+                    type: "api",
+                    message: apiResponse.msg || "Registration Failed"
+                });
+            }
+            else {
+                alert("Registration Successful!  Use the Login link above.");
+            }
+        }
+        catch (error: unknown) {
+            console.log(error);
+        }
     }
 
     return (
@@ -36,7 +73,8 @@ export default function Register() {
                 </fieldset>
                 <fieldset>
                     <label htmlFor="password">Password:</label>
-                    <input type="password" {...register("password", { required: "Password is required" })} />
+                    <input type="password" {...register("password", { required: "Password is required",
+                        validate: validatePassword })} />
                     {errors.password && <span className="error">{errors.password.message}</span>}
                 </fieldset>
                 <fieldset>
@@ -44,7 +82,11 @@ export default function Register() {
                     <input
                         type="password"
                         {...register("confirm", {
-                            required: "Password Confirmation is required"  })}
+                            required: "Password Confirmation is required",
+                            validate: (value, formValues) => {
+                                return value === formValues.password || "Passwords do not match"
+                            }
+                        })}
                     />
                     {errors.confirm && <span className="error">{errors.confirm.message}</span>}
                 </fieldset>
