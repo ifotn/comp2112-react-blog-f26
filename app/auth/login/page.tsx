@@ -19,7 +19,32 @@ export default function Login() {
     });
 
     const onSubmit = async (data: LoginFormData) => {
-        console.log(`Submitted: `, data);
+        //console.log(`Submitted: `, data);
+        try {
+            // create json payload from form values
+            const payload = {
+                username: data.username,
+                password: data.password
+            };
+
+            // get api domain from .env
+            const apiDomain: string = process.env.NEXT_PUBLIC_API_DOMAIN!;
+
+            // make POST request to server API, trying to log in
+            const response: Response = await fetch(`${apiDomain}/users/login`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload),
+                credentials: 'include' // required to store the http cookie w/jwt
+            });
+
+            // interpret api response
+            const apiResponse: any = await response.json();
+            console.log(apiResponse);
+        }
+        catch (error: unknown) {
+            console.log(error);
+        }
     }
 
     return (
