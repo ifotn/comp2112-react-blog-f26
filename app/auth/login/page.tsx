@@ -2,6 +2,7 @@
 
 import PageTitle from "@/app/components/pageTitle";
 import { useForm, Controller } from "react-hook-form";
+import { useRouter } from "next/navigation";
 
 interface LoginFormData {
     username: string;
@@ -9,6 +10,8 @@ interface LoginFormData {
 }
 
 export default function Login() {
+    // router for redirect after successful login
+    const router  = useRouter();
 
     // set up react-hook-form
     const { register, control, handleSubmit, setError, formState: { errors, isSubmitSuccessful }} = useForm<LoginFormData>({
@@ -40,7 +43,18 @@ export default function Login() {
 
             // interpret api response
             const apiResponse: any = await response.json();
-            console.log(apiResponse);
+            //console.log(apiResponse);
+
+            if (apiResponse.success == false) {
+                setError("username", {
+                    type: "api",
+                    message: apiResponse.msg || 'Login Failed'
+                });
+            }
+            else {
+                // redirect to blog
+                router.push('/blog');
+            }
         }
         catch (error: unknown) {
             console.log(error);
