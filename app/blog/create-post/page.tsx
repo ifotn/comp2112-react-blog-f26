@@ -5,6 +5,7 @@ import { useForm, Controller } from "react-hook-form";
 import { Post } from "@/app/types/post";
 import { useRouter } from "next/navigation";
 import SimpleWysiwyg from "react-simple-wysiwyg";
+import { useSessionCounter } from "@/app/context/globalContext";
 
 interface PostFormData {
     title: string;
@@ -22,6 +23,15 @@ export default function CreatePost() {
     // used for redirecting after save
     const router = useRouter();
 
+    // get username from global context
+    const { username } = useSessionCounter();
+
+    // make page private - if no global context username var, redirect to login
+    if (!username) {
+        router.push('/auth/login');
+        return;
+    }
+
     // set up react-hook-form
     const { register, control, handleSubmit, formState: { errors, isSubmitSuccessful }} = useForm<PostFormData>({
         defaultValues: {
@@ -38,7 +48,7 @@ export default function CreatePost() {
             const payload = {
                 title: data.title,
                 content: data.content,
-                author: 'rfreeman'
+                author: username // get username from global context
             };
 
             // get api domain from .env ; ! at the end is just a null check
@@ -50,12 +60,15 @@ export default function CreatePost() {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(payload)
+                body: JSON.stringify(payload),
+                credentials: 'include' // include cookies w/jwt
             });
 
             // hopefully we get a success response
             const apiResponse: Post = await response.json();
             console.log(apiResponse);
+
+
             router.push("/blog");
         }
         catch (error: unknown) {

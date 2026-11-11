@@ -1,6 +1,7 @@
 import {Post} from "@/app/types/post";
 import Link from "next/link";
 import PageTitle from "@/app/components/pageTitle";
+import NewPostLink from "@/app/components/newPostLink";
 
 export default async function Blog() {
     // get api domain from .env ; ! at the end is just a null check
@@ -16,7 +17,7 @@ export default async function Blog() {
         <main>
             <PageTitle title="Blog" />
             <h1>Blog</h1>
-            <Link href="/blog/create-post" className="newLink">Create New Blog Post</Link>
+            <NewPostLink />
             <ul>
                 {posts.map((post) => (
                     <li key={post._id} className="card">
