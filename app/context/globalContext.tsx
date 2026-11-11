@@ -6,6 +6,8 @@ import {isNumberObject} from "node:util/types";
 type CounterContextType = {
     sessionCounter: number;
     increment: () => void;
+    username: string;
+    setUsername: (name: string) => void;
 }
 
 // make public
@@ -19,8 +21,11 @@ export function GlobalProvider({ children }: { children: ReactNode }) {
         setSessionCounter(sessionCounter + 1);
     }
 
+    // global username
+    const [username, setUsername] = useState<string>('');
+
     return (
-        <GlobalContext.Provider value={{ sessionCounter, increment}}>
+        <GlobalContext.Provider value={{ sessionCounter, increment, username, setUsername }}>
             {children}
         </GlobalContext.Provider>
     );

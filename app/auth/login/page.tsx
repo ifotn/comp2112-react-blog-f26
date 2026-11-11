@@ -3,6 +3,7 @@
 import PageTitle from "@/app/components/pageTitle";
 import { useForm, Controller } from "react-hook-form";
 import { useRouter } from "next/navigation";
+import { useSessionCounter } from "@/app/context/globalContext";
 
 interface LoginFormData {
     username: string;
@@ -10,6 +11,9 @@ interface LoginFormData {
 }
 
 export default function Login() {
+    // access global context username so we can set it on successful login
+    const { setUsername } = useSessionCounter();
+
     // router for redirect after successful login
     const router  = useRouter();
 
@@ -52,6 +56,9 @@ export default function Login() {
                 });
             }
             else {
+                // set username in global context
+                setUsername(data.username);
+
                 // redirect to blog
                 router.push('/blog');
             }
