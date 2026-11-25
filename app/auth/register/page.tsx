@@ -116,6 +116,25 @@ export default function Register() {
                             <p className="strength-label">Strength: {label}</p>
                         </div>
                         {/* end left column */}
+                        {/* right column */}
+                        <ul className="password-checklist">
+                            <li className={checks.length ? "check-pass" : "check-fail"}>
+                                Min 8 characters
+                            </li>
+                            <li className={checks.lowercase ? "check-pass" : "check-fail"}>
+                                1 lowercase letter
+                            </li>
+                            <li className={checks.uppercase ? "check-pass" : "check-fail"}>
+                                1 uppercase letter
+                            </li>
+                            <li className={checks.digit ? "check-pass" : "check-fail"}>
+                                1 digit
+                            </li>
+                            <li className={checks.special ? "check-pass" : "check-fail"}>
+                                1 special character
+                            </li>
+                        </ul>
+                        {/* end right column */}
                     </div>
                 </fieldset>
                 <fieldset>
