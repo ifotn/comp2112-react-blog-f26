@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "dev:https": "tsx server.ts"
   },
   "dependencies": {
     "html-to-react": "^1.7.0",
@@ -24,6 +25,7 @@
     "eslint": "^4.0.0",
     "eslint-config-next": "^0.2.4",
     "tailwindcss": "^4",
+    "tsx": "^4.23.15",
     "typescript": "^5"
   }
 }

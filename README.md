@@ -69,3 +69,13 @@ After we ran npm audix fix we created an npm compatibility issue.  Fix by changi
 ```npm i react-simple-wysiwyg --legacy-peer-deps``` - rich text editor for blog post content with backwards compatibility settings to avoid npm version conflicts
 
 ```npm i html-to-react``` - to parse HTML tags for formatting of blog post content
+
+## Lesson 11
+
+```mkcert -install``` - install tool to make local SSL certs
+
+```mkcert localhost``` - create ssl cert + key file for domain 'localhost'
+
+```npm i tsx --save-dev``` - to run ts file directly (server.ts to start app w/ssl)
+
+```npm run dev:https``` - run app using our own server.ts, which uses our localhost SSL to run encrypted w/HTTPS
