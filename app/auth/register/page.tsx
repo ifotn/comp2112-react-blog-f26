@@ -9,16 +9,40 @@ interface RegisterFormData {
     confirm: string;
 }
 
+const getPasswordStrength = (password: string) => {
+    const checks = {
+        length: password.length >= 8,
+        lowercase: /[a-z]/.test(password),
+        uppercase: /[A-Z]/.test(password),
+        digit: /\d/.test(password),
+        special: /[^A-Za-z0-9]/.test(password)
+    };
+
+    const passed = Object.values(checks).filter(Boolean).length;
+
+    // password strength defaults to Weak
+    let label: string = "Weak";
+
+    if (passed == 4) label = "Medium";
+    if (passed == 5) label = "Strong";
+
+    return { label, passed, checks };
+};
+
 export default function Register() {
 
     // set up react-hook-form
-    const { register, control, handleSubmit, setError, formState: { errors, isSubmitSuccessful }} = useForm<RegisterFormData>({
+    const { register, control, handleSubmit, watch, setError, formState: { errors, isSubmitSuccessful }} = useForm<RegisterFormData>({
         defaultValues: {
             username: '',
             password: '',
             confirm: ''
         }
     });
+
+    // password watcher
+    const password: string = watch("password") || "";
+    const { label, checks } = getPasswordStrength(password);
 
     const validatePassword = (value: string) => {
         const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/;
@@ -74,11 +98,25 @@ export default function Register() {
                     <input {...register("username", { required: "Username is required" })} type="email" />
                     {errors.username && <span className="error">{errors.username.message}</span>}
                 </fieldset>
-                <fieldset>
+                <fieldset className="password-fieldset">
                     <label htmlFor="password">Password:</label>
-                    <input type="password" {...register("password", { required: "Password is required",
-                        validate: validatePassword })} />
-                    {errors.password && <span className="error">{errors.password.message}</span>}
+                    <div className="password-row">
+                        {/* left column */}
+                        <div className="flex-1">
+                            <input type="password" {...register("password", { required: "Password is required" })}
+                               />
+                            {errors.password && <span className="error">{errors.password.message}</span>}
+                            <div className="strength-bar">
+                                <div className={`strength-fill ${
+                                    label == "Weak" ? "strength-weak" 
+                                        : label == "Medium" ? "strength-medium"
+                                        : "strength-strong"
+                                }`}></div>
+                            </div>
+                            <p className="strength-label">Strength: {label}</p>
+                        </div>
+                        {/* end left column */}
+                    </div>
                 </fieldset>
                 <fieldset>
                     <label htmlFor="confirm">Confirm Password:</label>
